@@ -8,9 +8,9 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-	<artifactId>messaging-producer-api</artifactId>
-	<name>messaging-producer-api</name>
-	<description>Receives requests and routes them to the appropriate processing API (consumer).</description>
+	<artifactId>requests-simulator-api</artifactId>
+	<name>simulator-producer-api</name>
+	<description>Simulates user requests, acting as the producer of messages sent to the routing layer.</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -26,17 +26,12 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
-        <maven.test.skip>true</maven.test.skip>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>shared-dtos</artifactId>
@@ -51,4 +46,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

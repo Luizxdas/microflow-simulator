@@ -1,6 +1,6 @@
 package com.example.messaging_producer_api.controllers;
 
-import com.example.messaging_producer_api.dtos.FileDTO;
+import com.example.dtos.FileDTO;
 import com.example.messaging_producer_api.services.RabbitService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

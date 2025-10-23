@@ -1,13 +1,13 @@
-package com.example.messaging_producer_api;
+package com.example.processing_consumer_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RouterMessagingApiApplication {
+public class ProcessingConsumerApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RouterMessagingApiApplication.class, args);
+		SpringApplication.run(ProcessingConsumerApiApplication.class, args);
 	}
 
 }

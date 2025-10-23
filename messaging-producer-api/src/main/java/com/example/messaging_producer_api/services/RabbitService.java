@@ -1,6 +1,6 @@
 package com.example.messaging_producer_api.services;
 
-import com.example.messaging_producer_api.dtos.FileDTO;
+import com.example.dtos.FileDTO;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,6 @@ public class RabbitService {
             default -> "file.unknown";
         };
 
-        rabbitTemplate.convertAndSend(routingKey, file);
+        rabbitTemplate.convertAndSend("exchange.files", routingKey, file);
     }
 }
