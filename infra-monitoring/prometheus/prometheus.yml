@@ -2,17 +2,17 @@ global:
   scrape_interval: 5s
 
 scrape_configs:
-  - job_name: 'messaging-producer'
+  - job_name: 'producer'
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['producer:8080']
 
-  - job_name: 'processing-consumer'
+  - job_name: 'consumer'
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['consumer:8080']
 
-  - job_name: 'requests-simulator'
+  - job_name: 'requests'
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['requests:8080']
