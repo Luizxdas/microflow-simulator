@@ -12,10 +12,19 @@ public class ApiConsumerService {
         this.webClient = webClient;
     }
 
-    public void sendRequest() {
+    public void sendImageRequest() {
         webClient.post()
                 .uri("/files/send")
-                .bodyValue(new FileDTO("FirstOne", "image", "Image of a dog"))
+                .bodyValue(new FileDTO("ImageOne", "image", "Image of a dog"))
+                .retrieve()
+                .bodyToMono(Void.class)
+                .subscribe();
+    }
+
+    public void sendTextRequest() {
+        webClient.post()
+                .uri("/files/send")
+                .bodyValue(new FileDTO("TextOne", "text", "Hello World!"))
                 .retrieve()
                 .bodyToMono(Void.class)
                 .subscribe();

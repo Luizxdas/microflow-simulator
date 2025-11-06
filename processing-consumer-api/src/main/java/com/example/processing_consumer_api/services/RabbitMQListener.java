@@ -9,15 +9,13 @@ public class RabbitMQListener {
 
     @RabbitListener(queues = "queue.text")
     public void processText(FileDTO file) throws InterruptedException {
-        System.out.println("Processing: " + file.name());
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.println("Finished: " + file.name());
     }
 
     @RabbitListener(queues = "queue.image")
     public void processImage(FileDTO file) throws InterruptedException {
-        System.out.println("Processing: " + file.name());
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.println("Finished: " + file.name());
     }
 }

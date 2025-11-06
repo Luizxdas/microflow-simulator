@@ -11,8 +11,11 @@ public class ApiCallerScheduler {
         this.service = service;
     }
 
-    @Scheduled(fixedRate = 3000)
-    public void callApiPeriodically() {
-        service.sendRequest();
+    @Scheduled(fixedRate = 15000)
+    public void sendBatch() {
+        for (int i = 0; i < 5; i++) {
+            service.sendImageRequest();
+            service.sendTextRequest();
+        }
     }
 }
