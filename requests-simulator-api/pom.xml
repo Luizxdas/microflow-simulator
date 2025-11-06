@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 	<artifactId>requests-simulator-api</artifactId>
-	<name>simulator-producer-api</name>
+	<name>requests-simulator-api</name>
 	<description>Simulates user requests, acting as the producer of messages sent to the routing layer.</description>
 	<url/>
 	<licenses>
