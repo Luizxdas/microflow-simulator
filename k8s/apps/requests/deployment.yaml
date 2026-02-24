@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: requests
-          image: microflow-simulator-requests:latest
+          image: requests:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
