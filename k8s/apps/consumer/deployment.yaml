@@ -12,9 +12,25 @@ spec:
       labels:
         app: consumer
     spec:
+      initContainers:
+        - name: wait-for-rabbitmq
+          image: busybox:1.28
+          command:
+            - 'sh'
+            - '-c'
+            - |
+              until nc -z rabbitmq 5672; do
+                echo "Waiting for a connection to RabbitMQ..."
+                sleep 3
+              done
       containers:
         - name: consumer
           image: consumer:latest
           imagePullPolicy: Never
+          env:
+            - name: "APP_TEXT_SLEEP_TIME_MS"
+              value: "100"
+            - name: "APP_IMAGE_SLEEP_TIME_MS"
+              value: "100"
           ports:
             - containerPort: 8080

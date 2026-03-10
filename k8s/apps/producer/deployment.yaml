@@ -12,6 +12,17 @@ spec:
       labels:
         app: producer
     spec:
+      initContainers:
+        - name: wait-for-rabbitmq
+          image: busybox:1.28
+          command:
+            - 'sh'
+            - '-c'
+            - |
+              until nc -z rabbitmq 5672; do
+                echo "Waiting for a connection to RabbitMQ..."
+                sleep 3
+              done
       containers:
         - name: producer
           image: producer:latest

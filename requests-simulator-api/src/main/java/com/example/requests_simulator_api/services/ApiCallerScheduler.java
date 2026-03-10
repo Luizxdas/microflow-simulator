@@ -11,11 +11,9 @@ public class ApiCallerScheduler {
         this.service = service;
     }
 
-    @Scheduled(fixedRate = 15000)
+    @Scheduled(fixedDelayString = "${APP_REQUEST_DELAY_MS:200}")
     public void sendBatch() {
-        for (int i = 0; i < 5; i++) {
-            service.sendImageRequest();
-            service.sendTextRequest();
-        }
+        service.sendImageRequest();
+        service.sendTextRequest();
     }
 }
