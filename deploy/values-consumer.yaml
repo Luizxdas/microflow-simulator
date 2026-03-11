@@ -1,0 +1,18 @@
+app:
+  name: consumer
+  image: "consumer:latest"
+
+service:
+  name: consumer
+
+initContainers:
+  - name: wait-for-producer
+    image: busybox:1.28
+    command:
+      - 'sh'
+      - '-c'
+      - |
+        until nc -z rabbitmq 5672; do
+          echo "Waiting for a connection to RabbitMQ..."
+          sleep 3
+        done
