@@ -1,0 +1,19 @@
+prometheus:
+  service:
+    type: NodePort
+    nodePort: 32000
+  prometheusSpec:
+    serviceMonitorSelector:
+      matchLabels:
+        monitoring: "true"
+    serviceMonitorNamespaceSelector: {}
+
+grafana:
+  service:
+    type: NodePort
+    nodePort: 32001
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"

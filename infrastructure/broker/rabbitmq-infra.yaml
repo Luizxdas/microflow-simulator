@@ -1,0 +1,27 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq-server
+  namespace: microflow-simulator
+spec:
+  replicas: 1
+  rabbitmq:
+    additionalPlugins:
+      - rabbitmq_management
+      - rabbitmq_prometheus
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: rabbitmq-metrics
+  namespace: microflow-simulator
+  labels:
+    monitoring: "true"
+spec:
+  endpoints:
+    - port: prometheus
+      scheme: http
+      interval: 15s
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rabbitmq-server
