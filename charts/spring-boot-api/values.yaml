@@ -1,0 +1,22 @@
+app:
+  name: default-api
+  image: nginx:latest
+
+service:
+  name: default-api-svc
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+
+metrics:
+  enabled: false
+  serviceMonitor:
+    labels:
+      release: monitoring
+    interval: 30s
+    path: /actuator/prometheus
+    portName: http
+
+initContainers: []
+envVars: []
