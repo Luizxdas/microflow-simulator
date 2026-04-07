@@ -1,0 +1,22 @@
+app:
+  image: "localhost:5001/requests:latest"
+
+service:
+  name: requests
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    labels:
+      monitoring: "true"
+    interval: 30s
+    path: /actuator/prometheus
+    portName: http
+
+envVars:
+  - name: "APP_REQUEST_DELAY_MS"
+    value: "1500"

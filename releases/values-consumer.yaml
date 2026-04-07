@@ -1,0 +1,36 @@
+app:
+  image: "localhost:5001/consumer:latest"
+
+service:
+  name: consumer
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    labels:
+      monitoring: "true"
+    interval: 30s
+    path: /actuator/prometheus
+    portName: http
+
+env:
+  - name: APP_TEXT_SLEEP_TIME_MS
+    value: "100"
+  - name: APP_IMAGE_SLEEP_TIME_MS
+    value: "100"
+  - name: SPRING_RABBITMQ_HOST
+    value: "rabbitmq-server"
+  - name: SPRING_RABBITMQ_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: rabbitmq-server-default-user
+        key: username
+  - name: SPRING_RABBITMQ_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: rabbitmq-server-default-user
+        key: password
