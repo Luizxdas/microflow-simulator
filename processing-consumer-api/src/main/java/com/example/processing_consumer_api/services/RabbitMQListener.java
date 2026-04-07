@@ -1,6 +1,6 @@
 package com.example.processing_consumer_api.services;
 
-import com.example.dtos.FileDTO;
+import com.example.processing_consumer_api.dtos.FileDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

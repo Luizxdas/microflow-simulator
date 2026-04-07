@@ -1,6 +1,6 @@
 package com.example.messaging_producer_api.services;
 
-import com.example.dtos.FileDTO;
+import com.example.messaging_producer_api.dtos.FileDTO;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 

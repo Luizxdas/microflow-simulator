@@ -1,5 +1,5 @@
 package com.example.requests_simulator_api.services;
-import com.example.dtos.FileDTO;
+import com.example.requests_simulator_api.dtos.FileDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
