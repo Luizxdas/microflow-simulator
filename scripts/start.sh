@@ -8,6 +8,16 @@ echo "📦 Bootstrapping Kind cluster and local registry..."
 chmod +x setup-cluster.sh
 ./setup-cluster.sh
 
+echo "📂 Creating application namespaces..."
+kubectl create namespace microflow-simulator --dry-run=client -o yaml | kubectl apply -f -
+
+echo "📊 Installing kube-prometheus-stack..."
+helm upgrade --install obs-stack oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack \
+  --namespace monitoring \
+  --create-namespace \
+  -f ../infrastructure/monitoring/values-monitoring.yaml \
+  --wait
+
 echo "🐇 Installing RabbitMQ Cluster Operator..."
 kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
 
@@ -19,13 +29,6 @@ kubectl apply -f ../infrastructure/broker/rabbitmq-infra.yaml
 
 echo "⏳ Waiting for RabbitMQ Cluster to become ready..."
 kubectl wait rabbitmqcluster -n microflow-simulator rabbitmq-server --for condition=ClusterAvailable=True --timeout=120s
-
-echo "📊 Installing kube-prometheus-stack..."
-helm upgrade --install obs-stack oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack \
-  --namespace monitoring \
-  --create-namespace \
-  -f ../infrastructure/monitoring/values-monitoring.yaml \
-  --wait
 
 echo "🐳 Building and pushing Docker images to local registry..."
 docker compose build
@@ -47,6 +50,9 @@ helm upgrade --install requests ../charts/spring-boot-api \
   --namespace microflow-simulator \
   -f ../releases/values-requests.yaml \
   --wait
+
+echo "📊 Including custom Grafana dashboards..."
+kubectl apply -n monitoring -f ../infrastructure/monitoring/dashboards-cm.yaml --server-side
 
 echo "✅ Deployment successful. Fetching credentials..."
 
