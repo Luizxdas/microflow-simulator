@@ -1,60 +1,15 @@
 services:
-  # --- RABBITMQ ---
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
-    command: >
-      bash -c "rabbitmq-plugins enable rabbitmq_prometheus && rabbitmq-server"
-
-  # --- MICROSERVICES---
   producer:
-    build: ./messaging-producer-api
-    ports:
-      - "8080:8080"
-    depends_on:
-      - rabbitmq
+    build:
+      dockerfile: messaging-producer-api/Dockerfile
+    image: localhost:5001/producer:latest
 
   consumer:
-    build: ./processing-consumer-api
-    ports:
-      - "8081:8080"
-    depends_on:
-      - rabbitmq
+    build:
+      dockerfile: processing-consumer-api/Dockerfile
+    image: localhost:5001/consumer:latest
 
-  requests:
-    build: ./requests-simulator-api
-    ports:
-      - "8082:8080"
-    depends_on:
-      - producer
-
-  # --- PROMETHEUS ---
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./infra-monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    depends_on:
-      - producer
-      - consumer
-      - requests
-
-  # --- GRAFANA ---
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    depends_on:
-      - prometheus
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+  simulator:
+    build:
+      dockerfile: requests-simulator-api/Dockerfile
+    image: localhost:5001/requests:latest
