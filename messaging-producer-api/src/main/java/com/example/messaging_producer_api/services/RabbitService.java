@@ -14,9 +14,8 @@ public class RabbitService {
 
     public void sendToQueue(FileDTO file) {
         String routingKey = switch (file.type()) {
-            case "text" -> "file.text";
-            case "image" -> "file.image";
-            default -> "file.unknown";
+            case TEXT -> "file.text";
+            case IMAGE -> "file.image";
         };
 
         rabbitTemplate.convertAndSend("exchange.files", routingKey, file);
