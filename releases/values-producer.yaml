@@ -1,5 +1,5 @@
 app:
-  image: "localhost:5001/producer:latest"
+  image: "localhost:5001/producer:1.0.1"
 
 service:
   name: producer

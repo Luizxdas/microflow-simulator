@@ -1,5 +1,5 @@
 app:
-  image: "localhost:5001/requests:latest"
+  image: "localhost:5001/requests:1.0.1"
 
 service:
   name: requests

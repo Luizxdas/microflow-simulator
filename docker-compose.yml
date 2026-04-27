@@ -2,14 +2,14 @@ services:
   producer:
     build:
       dockerfile: messaging-producer-api/Dockerfile
-    image: localhost:5001/producer:latest
+    image: localhost:5001/producer:1.0.1
 
   consumer:
     build:
       dockerfile: processing-consumer-api/Dockerfile
-    image: localhost:5001/consumer:latest
+    image: localhost:5001/consumer:1.0.1
 
   simulator:
     build:
       dockerfile: requests-simulator-api/Dockerfile
-    image: localhost:5001/requests:latest
+    image: localhost:5001/requests:1.0.1
