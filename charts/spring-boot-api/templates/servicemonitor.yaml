@@ -13,4 +13,8 @@ spec:
     - port: {{ .Values.metrics.serviceMonitor.portName }}
       path: {{ .Values.metrics.serviceMonitor.path }}
       interval: {{ .Values.metrics.serviceMonitor.interval }}
+      relabelings:
+        - targetLabel: instance
+          replacement: {{ .Values.service.name }}
+          action: replace
 {{- end }}
