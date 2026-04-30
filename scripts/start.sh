@@ -30,26 +30,8 @@ kubectl apply -f ../infrastructure/broker/rabbitmq-infra.yaml
 echo "⏳ Waiting for RabbitMQ Cluster to become ready..."
 kubectl wait rabbitmqcluster -n microflow-simulator rabbitmq-server --for condition=ClusterAvailable=True --timeout=120s
 
-echo "🐳 Building and pushing Docker images to local registry..."
-docker compose build
-docker compose push
-
-echo "☸️ Deploying Spring Boot APIs via Helm..."
-
-helm upgrade --install producer ../charts/spring-boot-api \
-  --namespace microflow-simulator \
-  -f ../releases/values-producer.yaml \
-  --wait
-
-helm upgrade --install consumer ../charts/spring-boot-api \
-  --namespace microflow-simulator \
-  -f ../releases/values-consumer.yaml \
-  --wait
-
-helm upgrade --install requests ../charts/spring-boot-api \
-  --namespace microflow-simulator \
-  -f ../releases/values-requests.yaml \
-  --wait
+echo "🚀 Building, pushing and deploying Spring Boot APIs via Skaffold & Jib..."
+skaffold run --build-concurrency=1
 
 echo "📊 Including custom Grafana dashboards..."
 kubectl apply -n monitoring -f ../infrastructure/monitoring/dashboards-cm.yaml --server-side

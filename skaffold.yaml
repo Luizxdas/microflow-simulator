@@ -1,0 +1,48 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: microflow-simulator
+
+build:
+  local:
+    push: true
+  artifacts:
+    - image: localhost:5001/producer
+      context: .
+      jib:
+        project: messaging-producer-api
+    - image: localhost:5001/consumer
+      context: .
+      jib:
+        project: processing-consumer-api
+    - image: localhost:5001/requests
+      context: .
+      jib:
+        project: requests-simulator-api
+
+deploy:
+  helm:
+    releases:
+      - name: producer
+        namespace: microflow-simulator
+        chartPath: ./charts/spring-boot-api
+        valuesFiles:
+          - ./releases/values-producer.yaml
+        setValues:
+          image.repository: localhost:5001/producer
+
+      - name: consumer
+        namespace: microflow-simulator
+        chartPath: ./charts/spring-boot-api
+        valuesFiles:
+          - ./releases/values-consumer.yaml
+        setValues:
+          image.repository: localhost:5001/consumer
+
+      - name: requests
+        namespace: microflow-simulator
+        chartPath: ./charts/spring-boot-api
+        valuesFiles:
+          - ./releases/values-requests.yaml
+        setValues:
+          image.repository: localhost:5001/requests

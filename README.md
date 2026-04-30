@@ -23,10 +23,17 @@ The system consists of three main Spring Boot APIs:
 
 ### Prerequisites
 Before running the project, ensure you have the following installed on your machine (if using Windows, WSL2 with Ubuntu is recommended):
-* [Docker](https://docs.docker.com/get-docker/) & Docker Compose
+
+**Infrastructure & Orchestration:**
+* [Docker](https://docs.docker.com/get-docker/)
 * [Kubectl](https://kubernetes.io/docs/tasks/tools/)
 * [Helm](https://helm.sh/docs/intro/install/)
 * [Kind (Kubernetes IN Docker)](https://kind.sigs.k8s.io/docs/user/quick-start/)
+
+**Build & Deployment:**
+* [Java Development Kit (JDK) 21](https://adoptium.net/)
+* [Apache Maven](https://maven.apache.org/install.html)
+* [Skaffold](https://skaffold.dev/docs/install/)
 
 ### Running Locally
 To bootstrap the entire environment (cluster, registry, broker, observability, and APIs), simply execute the startup script:
@@ -53,5 +60,4 @@ chmod +x teardown.sh
 \`\`\`
 
 ## 🗺️ Future Improvements (Roadmap)
-* **Skaffold Integration:** Replace manual bash orchestration with Skaffold for automated image building (via Jib) and Kubernetes deployment.
 * **Observability UI Optimization:** Refactor Grafana configuration to use human-readable instance names, organize custom dashboards into dedicated folders, and potentially disable the default `kube-prometheus-stack` dashboards to declutter the workspace.
