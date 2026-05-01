@@ -9,6 +9,7 @@ prometheus:
     serviceMonitorNamespaceSelector: {}
 
 grafana:
+  defaultDashboardsEnabled: false
   service:
     type: NodePort
     nodePort: 32001
