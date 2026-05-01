@@ -58,6 +58,3 @@ To avoid consuming unnecessary system resources, execute the teardown script:
 chmod +x teardown.sh
 ./teardown.sh
 \`\`\`
-
-## 🗺️ Future Improvements (Roadmap)
-* **Observability UI Optimization:** Refactor Grafana configuration to use human-readable instance names, organize custom dashboards into dedicated folders, and potentially disable the default `kube-prometheus-stack` dashboards to declutter the workspace.
